@@ -31,26 +31,30 @@ async def lookup(
     number: str = Query(None)
 ):
 
-    if key != "lundkinger":
+    if key != "Project 2_0":
         return JSONResponse(status_code=403, content={"error": "Unauthorized: Invalid Key"})
 
     if not number:
         return JSONResponse(status_code=400, content={"error": "Number parameter is required"})
 
-    target_url = f"https://api.paanel.shop/numapi.php?action=api&key=sssintel&test3=&test3={number}"
+    target_url = f"https://family-api-mu.vercel.app/?key=IntelXPaid&number={number}"
 
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(target_url, timeout=15.0)
 
-            # Try returning JSON directly
             try:
-                return JSONResponse(
-                    status_code=response.status_code,
-                    content=response.json()
-                )
+                data = response.json()
+
+                # ===== FILTER REMOVE OWNER & API BY =====
+                filtered_data = {
+                    "success": data.get("success"),
+                    "result": data.get("result")
+                }
+
+                return JSONResponse(content=filtered_data)
+
             except:
-                # If not JSON, return raw text
                 return JSONResponse(
                     status_code=response.status_code,
                     content={"raw_response": response.text}
@@ -60,4 +64,4 @@ async def lookup(
             return JSONResponse(
                 status_code=500,
                 content={"error": "API error", "details": str(e)}
-            )
+    )
