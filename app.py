@@ -62,4 +62,4 @@ async def lookup(key: str = Query(None), number: str = Query(None)):
             return JSONResponse(
                 status_code=500,
                 content={"error": "API error", "details": str(e)}
-                           )
+                )
