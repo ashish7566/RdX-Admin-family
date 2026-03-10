@@ -31,7 +31,7 @@ async def lookup(
     number: str = Query(None)
 ):
 
-    if key != "Project 2_0":
+    if key != "Project2_0":
         return JSONResponse(status_code=403, content={"error": "Unauthorized: Invalid Key"})
 
     if not number:
