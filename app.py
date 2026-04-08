@@ -46,7 +46,7 @@ async def lookup(key: str = Query(None), number: str = Query(None)):
     if not number:
         return JSONResponse(status_code=400, content={"error": "Number parameter is required"})
 
-    target_url = f"https://family-api-mu.vercel.app/?key=IntelXPaid&number={number}"
+    target_url = f"http://api.subhxcosmo.in/api?key=CYBERMCBISI2&type=id_family&term={number}"
 
     async with httpx.AsyncClient() as client:
         try:
